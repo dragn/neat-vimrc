@@ -1,7 +1,8 @@
-" An example for a vimrc file.
+" Neat .vimrc
+" Based on example .vimrc file by Bram Moolenaar <Bram@vim.org>
 "
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2008 Dec 17
+" Maintainer:	Daniel Sabelnikov <dsabelnikov@gmail.com>
+" Created:      5 May 2014
 "
 " To use it, copy it to
 "     for Unix and OS/2:  ~/.vimrc
@@ -99,10 +100,6 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-set tabstop=2
-set shiftwidth=2
-set expandtab
-set number
 
 vmap '' :w !pbcopy<CR><CR>
 
@@ -110,12 +107,25 @@ vmap '' :w !pbcopy<CR><CR>
 set dir=~/.vim/tmp,.
 set bdir=~/.vim/tmp,.
 
+" ******************************** "
+" ===== Neat .vimrc features ===== "
+" ******************************** "
+
+set tabstop=2
+set shiftwidth=2
+
+" Expand tabs to spaces
+set expandtab
+
+" Enable line numbers
+set number
+
 " ===== Netrw Setup =====
 let g:netrw_browse_split = 4
 let g:netrw_preview      = 1
 let g:netrw_altv         = 1
 
-" ===== My Custom Key Mappings =====
+" ===== Custom Key Mappings =====
 
 " F2 opens current directory listing
 map <F2> :20Vexplore<CR>
@@ -132,6 +142,6 @@ map <A-RIGHT> :wincmd l<CR>
 map <A-UP> :wincmd k<CR>
 map <A-DOWN> :wincmd j<CR>
 
-" Resizing current window
+" Resizing current vertical tab
 map <C-S-LEFT> :vertical resize +10<CR>
 map <C-S-RIGHT> :vertical resize -10<CR>
