@@ -114,6 +114,9 @@ set bdir=~/.vim/tmp,.
 set tabstop=2
 set shiftwidth=2
 
+" 4 spaces for Java files
+autocmd FileType java setlocal shiftwidth=4 tabstop=4
+
 " Expand tabs to spaces
 set expandtab
 
