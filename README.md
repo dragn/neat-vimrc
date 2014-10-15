@@ -3,6 +3,6 @@ neat-vimrc
 
 My setup for vim.
 
-Download with wget:
+Install with curl (rewrites your current setup):
 
-    wget raw.github.com/dragn/neat-vimrc/master/.vimrc
+    curl https://raw.githubusercontent.com/dragn/neat-vimrc/master/.vimrc > ~/.vimrc
