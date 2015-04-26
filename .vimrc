@@ -1,18 +1,18 @@
 " Neat .vimrc
 " Based on example .vimrc file by Bram Moolenaar <Bram@vim.org>
 "
-" Maintainer:	Daniel Sabelnikov <dsabelnikov@gmail.com>
+" Maintainer:   Daniel Sabelnikov <dsabelnikov@gmail.com>
 " Created:      5 May 2014
 "
 " To use it, copy it to
 "     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
+"         for Amiga:  s:.vimrc
 "  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
+"       for OpenVMS:  sys$login:.vimrc
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
-  finish
+    finish
 endif
 
 " Use Vim settings, rather than Vi settings (much better!).
@@ -23,15 +23,15 @@ set nocompatible
 set backspace=indent,eol,start
 
 if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
+    set nobackup      " do not keep a backup file, use versions instead
 else
-  set backup		" keep a backup file
+    set backup        " keep a backup file
 endif
 set backupdir=~/.vimbackup,~/.tmp/,~/
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
+set history=50      " keep 50 lines of command line history
+set ruler       " show the cursor position all the time
+set showcmd     " display incomplete commands
+set incsearch       " do incremental searching
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -45,63 +45,80 @@ inoremap <C-U> <C-G>u<C-U>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
-  set mouse=a
+    set mouse=a
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
+    syntax on
+    set hlsearch
 endif
 
-call pathogen#infect()
-syntax enable
 
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
+" ******************************** "
+" =====    Setup Plugins     ===== "
+" ******************************** "
+"
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
+" NERDTree
+Plugin 'scrooloose/nerdtree'
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+" My fork of vim-javascript
+Plugin 'dragn/vim-javascript'
 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  " Also don't do it when the mark is in the first line, that is the default
-  " position when opening a file.
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+" Awesome plugin to track most-recently used files
+Plugin 'yegappan/mru'
 
-  augroup END
+" Highlight and fix trailing whitespaces
+Plugin 'bronson/vim-trailing-whitespace'
 
-else
+" Support for istanbul code coverage files
+Plugin 'juanpabloaj/vim-istanbul'
 
-  set autoindent		" always set autoindenting on
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+"
+" ===== End of Plugins setup ===== "
 
-endif " has("autocmd")
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
+filetype plugin indent on
+
+" Put these in an autocmd group, so that we can delete them easily.
+augroup vimrcEx
+au!
+
+" For all text files set 'textwidth' to 78 characters.
+autocmd FileType text setlocal textwidth=78
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+" Also don't do it when the mark is in the first line, that is the default
+" position when opening a file.
+autocmd BufReadPost *
+            \ if line("'\"") > 1 && line("'\"") <= line("$") |
+            \   exe "normal! g`\"" |
+            \ endif
+
+augroup END
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+                \ | wincmd p | diffthis
 endif
-
-
-vmap '' :w !pbcopy<CR><CR>
 
 " Set directory for swaps and backups
 set dir=~/.vim/tmp,.
@@ -111,6 +128,7 @@ set bdir=~/.vim/tmp,.
 " ===== Neat .vimrc features ===== "
 " ******************************** "
 
+" The default is 2 spaces per tab
 set tabstop=2
 set shiftwidth=2
 
@@ -131,20 +149,42 @@ let g:netrw_altv         = 1
 " ===== Custom Key Mappings =====
 
 " F2 opens current directory listing
-map <F2> :20Vexplore<CR>
+map <F2> :NERDTree<CR>
 
 " F3 saves current file
 map <F3> :w<CR>
 
+" F4 formats and saves file
+map <F4> gg=G'':w<CR>
+
+" F5 opens up most-recently used files listing
+map <F5> :MRU<CR>
+
 " Ctrl-W closes current window
 map <C-W> :close<CR>
 
-" Moving around tabs with Alt + Arrows
-map <A-LEFT> :wincmd h<CR>
-map <A-RIGHT> :wincmd l<CR>
-map <A-UP> :wincmd k<CR>
-map <A-DOWN> :wincmd j<CR>
+" Ctrl-Q closes current buffer without saving
+map <C-Q> :q!<CR>
 
-" Resizing current vertical tab
+" Moving around tabs with Alt + Arrows
+map <A-LEFT>  :wincmd h<CR>
+map <A-RIGHT> :wincmd l<CR>
+map <A-UP>    :wincmd k<CR>
+map <A-DOWN>  :wincmd j<CR>
+
+" MacOS/iTerm2 fix (Alt + Arrows)
+map <ESC>[1;9D :wincmd h<CR>
+map <ESC>[1;9C :wincmd l<CR>
+map <ESC>[1;9A :wincmd k<CR>
+map <ESC>[1;9B :wincmd j<CR>
+
+" Ctrl-Shift-Left, Ctrl-Shift-Right: resize current vertical tab
 map <C-S-LEFT> :vertical resize +10<CR>
 map <C-S-RIGHT> :vertical resize -10<CR>
+
+" set type javascript for *.bemhtml/*.bemtree files
+au BufNewFile,BufRead *.bemhtml setf javascript
+au BufNewFile,BufRead *.bemtree setf javascript
+
+" set type markdown for *.md files
+au BufNewFile,BufReadPost *.md set filetype=markdown
