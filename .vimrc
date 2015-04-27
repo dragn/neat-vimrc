@@ -160,11 +160,27 @@ map <F4> gg=G'':w<CR>
 " F5 opens up most-recently used files listing
 map <F5> :MRU<CR>
 
+" F6 show javascript code coverage
+let g:coverage_json_path = './coverage.json'
+map <F6> :IstanbulShow<CR>
+
 " Ctrl-W closes current window
 map <C-W> :close<CR>
 
 " Ctrl-Q closes current buffer without saving
 map <C-Q> :q!<CR>
+
+" Ctrl-R in visual mode: replace current selection
+vmap <C-R> y:%s/<C-R>"/
+
+" Ctrl-F in visual mode: search current selection
+vmap <C-F> y/<C-R>"<CR>
+
+" Ctrl-C in visual mode: copy selection to clipboard (MacOS)
+vmap <C-C> :w !pbcopy<CR><CR>
+
+" Ctrl-V: paste to current position from clipboard (MacOS)
+map <C-V> :.!pbpaste<CR>
 
 " Moving around tabs with Alt + Arrows
 map <A-LEFT>  :wincmd h<CR>
