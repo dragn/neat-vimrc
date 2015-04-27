@@ -82,6 +82,9 @@ Plugin 'bronson/vim-trailing-whitespace'
 " Support for istanbul code coverage files
 Plugin 'juanpabloaj/vim-istanbul'
 
+" Preview markdown files in browser (requires Livedown: http://github.com/shime/vim-livedown)
+Plugin 'shime/vim-livedown'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 "
