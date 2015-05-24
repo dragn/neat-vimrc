@@ -70,6 +70,9 @@ Plugin 'gmarik/Vundle.vim'
 " NERDTree
 Plugin 'scrooloose/nerdtree'
 
+" Javascript syntax
+Plugin 'jelera/vim-javascript-syntax'
+
 " My fork of vim-javascript
 Plugin 'dragn/vim-javascript'
 
@@ -126,6 +129,7 @@ endif
 " Set directory for swaps and backups
 set dir=~/.vim/tmp,.
 set bdir=~/.vim/tmp,.
+set undodir=~/.vim/tmp,.
 
 " ******************************** "
 " ===== Neat .vimrc features ===== "
@@ -137,12 +141,15 @@ set shiftwidth=2
 
 " 4 spaces for Java files
 autocmd FileType java setlocal shiftwidth=4 tabstop=4
+autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
 
 " Expand tabs to spaces
 set expandtab
 
 " Enable line numbers
 set number
+
+set undofile
 
 " ===== Netrw Setup =====
 let g:netrw_browse_split = 4
