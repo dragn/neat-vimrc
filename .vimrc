@@ -88,6 +88,9 @@ Plugin 'juanpabloaj/vim-istanbul'
 " Preview markdown files in browser (requires Livedown: http://github.com/shime/vim-livedown)
 Plugin 'shime/vim-livedown'
 
+Plugin 'vim-stylus'
+Plugin 'tpope/vim-fugitive'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 "
@@ -139,7 +142,7 @@ set undodir=~/.vim/tmp,.
 set tabstop=2
 set shiftwidth=2
 
-" 4 spaces for Java files
+" 4 spaces for Java and JavaScript files
 autocmd FileType java setlocal shiftwidth=4 tabstop=4
 autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
 
@@ -160,6 +163,7 @@ let g:netrw_altv         = 1
 
 " F2 opens current directory listing
 map <F2> :NERDTree<CR>
+map <C-F> :NERDTreeFind<CR>
 
 " F3 saves current file
 map <F3> :w<CR>
@@ -214,3 +218,9 @@ au BufNewFile,BufRead *.bemtree setf javascript
 
 " set type markdown for *.md files
 au BufNewFile,BufReadPost *.md set filetype=markdown
+
+" stylus files
+au BufNewFile,BufReadPost *.styl set filetype=stylus
+
+" My colorscheme of choice
+colorscheme ron
