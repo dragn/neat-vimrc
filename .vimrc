@@ -178,6 +178,9 @@ map <F5> :MRU<CR>
 let g:coverage_json_path = './coverage.json'
 map <F6> :IstanbulShow<CR>
 
+" F12 lookup header files for a word under cursor
+map <F12> bvey:vim /<C-R>"/ **/*.hpp<CR>:cw<CR>
+
 " Ctrl-W closes current window
 map <C-W> :close<CR>
 
