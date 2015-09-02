@@ -156,7 +156,14 @@ set expandtab
 " Enable line numbers
 set number
 
+" Enable peristent undo history
 set undofile
+
+" cindent options
+set cino=N-s
+
+" set path to ** for :find command to search recursively
+set path=**
 
 " ===== Netrw Setup =====
 let g:netrw_browse_split = 4
