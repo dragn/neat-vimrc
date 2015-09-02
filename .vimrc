@@ -142,6 +142,10 @@ set undodir=~/.vim/tmp,.
 set tabstop=2
 set shiftwidth=2
 
+" cindent options:
+" - disable indent inside C++ namespaces
+set cino=N-s
+
 " 4 spaces for Java and JavaScript files
 autocmd FileType java setlocal shiftwidth=4 tabstop=4
 autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
