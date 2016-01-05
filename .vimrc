@@ -204,11 +204,24 @@ vmap <C-R> y:%s/<C-R>"/
 " Ctrl-F in visual mode: search current selection
 vmap <C-F> y/<C-R>"<CR>
 
-" Ctrl-C in visual mode: copy selection to clipboard (MacOS)
-vmap <C-C> :w !pbcopy<CR><CR>
+let s:uname = system('uname')
 
-" Ctrl-V: paste to current position from clipboard (MacOS)
-map <C-V> :.!pbpaste<CR>
+if s:uname =~ "Darwin"
+  " Ctrl-C in visual mode: copy selection to clipboard (MacOS)
+  vmap <C-C> :w !pbcopy<CR><CR>
+
+  " Ctrl-V: paste to current position from clipboard (MacOS)
+  map <C-V> :.!pbpaste<CR>
+endif
+
+if s:uname =~ "Linux"
+  " Add Ctrl-C/Ctrl-V shortcuts for xclip if present
+  exec system('xclip -h')
+  if !v:shell_error
+    vmap <C-C> :!xclip -f -in -selection clipboard<CR>
+    map <C-V> :read !xclip -f -out -selection clipboard<CR>
+  endif
+endif
 
 " Moving around tabs with Alt + Arrows
 map <A-LEFT>  :wincmd h<CR>
